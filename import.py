@@ -7,6 +7,7 @@ import unicodedata
 open_quizz_db_data = (
     ("Animaux", "Les chats", "https://www.codeavecjonathan.com/res/mission/openquizzdb_50.json"),
     ("Arts", "Musée du Louvre", "https://www.codeavecjonathan.com/res/mission/openquizzdb_86.json"),
+    ("Artis", "Musée du couloeuvre", "https://www.codeavecjonathan.com/"),
     ("Cinéma", "Alien", "https://www.codeavecjonathan.com/res/mission/openquizzdb_241.json"),
     ("Cinéma", "Star wars", "https://www.codeavecjonathan.com/res/mission/openquizzdb_90.json"),
 )
@@ -26,7 +27,7 @@ def generate_json_file(categorie, titre, url):
     try:
         response = requests.get(url)
     except:
-        print("Exception pour la requête: '" + url + "'")
+        print('Exception pour la requête: " ' + url + ' "')
     else:
         try:
             data = json.loads(response.text)
@@ -50,7 +51,7 @@ def generate_json_file(categorie, titre, url):
                 file.close()
                 print("end")
         except:
-            print("Exception data pour l'url : " + url + " - Questionnaire : " + titre)
+            print("Exception data pour l'url : "+'" ' + url + ' " - Questionnaire : ' + titre)
 
 
 for quizz_data in open_quizz_db_data:
