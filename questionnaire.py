@@ -62,17 +62,18 @@ class Questionnaire:
 
     def lancer(self):
         score = 0
+        nb_questions = len(self.questions)
         print("Questionnaire: " + self.titre)
         print("Catégorie: " + self.categorie)
         print("Difficulté: " + self.difficulte)
-        print("Nombre de questions: " + str(len(self.questions)))
+        print("Nombre de questions: " + str(nb_questions))
         print()
         
-        for i in range(len(self.questions)):
+        for i in range(nb_questions):
             question = self.questions[i]
-            if question.poser(i, len(self.questions)):
+            if question.poser(i, nb_questions):
                 score += 1
-        print("Score final :", score, "sur", len(self.questions))
+        print("Score final :", score, "sur", nb_questions)
         return score
 
 
