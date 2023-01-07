@@ -17,7 +17,7 @@ class Question:
         return q
 
     def poser(self, num_question, nb_questions):
-        print("QUESTION N° " + str(num_question+1) + "/" + str(nb_questions))
+        print(f"QUESTION N° {num_question+1}/{nb_questions}")
         print("  " + self.titre)
         for i in range(len(self.choix)):
             print("  ", i+1, "-", self.choix[i])
