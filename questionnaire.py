@@ -19,6 +19,9 @@
 #    - lancer()
 #
 
+import json
+
+
 class Question:
     def __init__(self, titre, choix, bonne_reponse):
         self.titre = titre
@@ -88,12 +91,21 @@ lancer_questionnaire(questionnaire)"""
 # q = Question.FromData(data)
 # print(q.__dict__)
 
-Questionnaire(
+"""Questionnaire(
     (
     Question("Quelle est la capitale de la France ?", ("Marseille", "Nice", "Paris", "Nantes", "Lille"), "Paris"), 
     Question("Quelle est la capitale de l'Italie ?", ("Rome", "Venise", "Pise", "Florence"), "Rome"),
     Question("Quelle est la capitale de la Belgique ?", ("Anvers", "Bruxelles", "Bruges", "Liège"), "Bruxelles")
     )
-).lancer()
+).lancer()"""
 
+# Charger un fichier JSON
 
+filename ="cinema_starwars_debutant.json"
+file = open(filename, "r")
+json_data = file.read()
+file.close()
+
+questionnaire_data = json.loads(json_data)
+
+print()
