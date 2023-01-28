@@ -21,7 +21,7 @@ class Question:
         return q
 
     def poser(self, num_question, nb_questions):
-        print(f"QUESTION N° {num_question+1}/{nb_questions}")
+        print(f"QUESTION N° {num_question}/{nb_questions}")
         print("  " + self.titre)
         for i in range(len(self.choix)):
             print("  ", i+1, "-", self.choix[i])
@@ -89,20 +89,22 @@ class Questionnaire:
         
         for i in range(nb_questions):
             question = self.questions[i]
-            if question.poser(i, nb_questions):
+            if question.poser(i+1, nb_questions):
                 score += 1
         print("Score final :", score, "sur", nb_questions)
         return score
 
-# Questionnaire.from_json_file("animaux_leschats_debutant.json").lancer()
 
-if len(sys.argv) < 2:
-    print("ERREUR: Vous devez spécifier le nom du fichier à charger")
-    exit(0)
+if __name__ == "__main__":
+    # Questionnaire.from_json_file("animaux_leschats_debutant.json").lancer()
 
-json_filename = sys.argv[1]
-questionnaire = Questionnaire.from_json_file(json_filename)
+    if len(sys.argv) < 2:
+        print("ERREUR: Vous devez spécifier le nom du fichier à charger")
+        exit(0)
 
-if questionnaire:
-    questionnaire.lancer()
+    json_filename = sys.argv[1]
+    questionnaire = Questionnaire.from_json_file(json_filename)
+
+    if questionnaire:
+        questionnaire.lancer()
 
