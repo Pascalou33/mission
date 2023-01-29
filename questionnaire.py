@@ -58,14 +58,29 @@ class Questionnaire:
         self.difficulte = difficulte
         
     def fromjsondata(data):
+
+        # Si le fichier Json n'a pas de questions, arrêt du questionnaire par None    
+        if not data.get("questions"):
+            return None    
+
         questionnaire_data_questions = data["questions"]
         questions = [Question.fromjsondata(i) for i in questionnaire_data_questions]
         # Supprime les questions None (qui n'ont pas pu être créées)
         questions = [i for i in questions if i]
+        
+        # Si le fichier Json n'a pas de catégorie ou de difficulté, donnée mise à "inconnue"
+        if not data.get("categorie"):
+            data["categorie"] = "inconnue"
+            
+        if not data.get("difficulte"):
+            data["difficulte"] = "inconnue"
+        
+        # Si le fichier Json n'a pas de titre, arrêt du questionnaire par None    
+        if not data.get("titre"):
+            return None    
 
         return Questionnaire(questions, data['categorie'], data['titre'], data['difficulte'])
-    
-    
+        
     def from_json_file(filename):
         try:
             file = open(filename, "r")
@@ -76,7 +91,6 @@ class Questionnaire:
             print("ERREUR: Exception lors de l'ouverture ou la lecture du fichier")
             return None
         return Questionnaire.fromjsondata(questionnaire_data)
-
 
     def lancer(self):
         score = 0
@@ -93,7 +107,6 @@ class Questionnaire:
                 score += 1
         print("Score final :", score, "sur", nb_questions)
         return score
-
 
 if __name__ == "__main__":
     # Questionnaire.from_json_file("animaux_leschats_debutant.json").lancer()
