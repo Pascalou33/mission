@@ -2,6 +2,7 @@ import os
 import unittest
 from unittest.mock import patch
 import questionnaire
+import questionnaire_import
 
 
 class TestQuestion(unittest.TestCase):
