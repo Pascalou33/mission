@@ -47,7 +47,10 @@ class TestQuestionnaire(unittest.TestCase):
         q =questionnaire.Questionnaire.from_json_file(filename)
         self.assertIsNone(q)       
                
-
+class TestImportQuestionnaire(unittest.TestCase):
+    def test_import_format_json(self):
+        pass
+        
 unittest.main()
 
 
