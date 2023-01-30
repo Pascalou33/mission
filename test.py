@@ -1,3 +1,4 @@
+import json
 import os
 import unittest
 from unittest.mock import patch
@@ -50,8 +51,45 @@ class TestQuestionnaire(unittest.TestCase):
                
 class TestImportQuestionnaire(unittest.TestCase):
     def test_import_format_json(self):
-        pass
+        questionnaire_import.generate_json_file("Animaux", "Les chats", "https://www.codeavecjonathan.com/res/mission/openquizzdb_50.json")
+        filenames = ("animaux_leschats_confirme.json", "animaux_leschats_debutant.json", "animaux_leschats_expert.json")
         
+        for filename in filenames:
+            self.assertTrue(os.path.isfile(filename))
+            file = open(filename, "r")
+            json_data = file.read()
+            file.close()
+            try:
+                data = json.loads(json_data)
+            except:
+                self.fail("ERREUR: Problème de désérialisation du fichier Json" + filename)
+                return
+            
+            # titre, categorie, questions, difficulte
+            self.assertIsNotNone(data.get("titre"))
+            self.assertIsNotNone(data.get("categorie"))
+            self.assertIsNotNone(data.get("questions"))
+            self.assertIsNotNone(data.get("difficulte")) 
+            
+            # question -> titre, choix
+            for question in data.get("questions"):
+                # print("Question : " + str(question))
+                self.assertIsNotNone(question.get("titre"))
+                self.assertIsNotNone(question.get("choix"))
+            
+            # choix   -> longueur du titre > 0
+                for choix in question.get("choix"):
+                    self.assertGreater(len(choix[0]), 0)
+                    
+            #         -> 2ème champ est bien bool isinstance(...., bool)
+                    self.assertTrue(isinstance(choix[1], bool))
+                    
+            #   -> il y a bien une seule bonne réponse
+                bonne_reponses = [i[0] for i in question.get("choix") if i[1]]
+                self.assertEqual(len(bonne_reponses), 1)
+            
+            
+
 unittest.main()
 
 
